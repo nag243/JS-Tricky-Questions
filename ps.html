@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Variable hoisting
+      // "use strict";
+      hosVar = 5;
+      console.log("Value of HosVar", hosVar);
+      var hosVar;
+
+      // Function Hoisting
+      hoistedFunction();
+
+      function hoistedFunction() {
+        console.log(" Hello world! ");
+      }
+
+      let num1 = 7;
+      let num2 = 9;
+      [num1, num2] = [num2, num1];
+      console.log(num1);
+      console.log(num2);
+
+      //   Call() method example
+
+      function sayHello() {
+        return "Hello " + this.name;
+      }
+      var obj = {
+        name: "Pankaj",
+      };
+      sayHello.call(obj);
+      console.log(sayHello.call(obj));
+
+      //
+      var person = {
+        age: 23,
+        getAge: function () {
+          return this.age;
+        },
+      };
+      var person2 = { age: 54 };
+      person.getAge.call(person2);
+      console.log(person.getAge.call(person2), "get age");
+
+      //
+      function saySomething(message) {
+        //   return this.name + " is " + message
+        return `${this.name} is ${message}`;
+      }
+      var person3 = {
+        name: "John",
+      };
+      console.log(saySomething.call(person3, "Awesome"));
+
+      //   call() method takes arguments separately whereas, apply() method takes arguments as an array.
+
+      // apply() method
+
+      function saySomethingNew(message) {
+        return `${this.name} is ${message}`;
+      }
+      var person4 = {
+        name: "Pankaj",
+      };
+      console.log(saySomethingNew.apply(person4, ["Awesome"]));
+
+      //  bind() method
+
+      var bikeDetails = {
+        displayDetails: function (regNumber, brandName) {
+          return `${this.name}, bike details: ${regNumber}, ${brandName}`;
+        },
+      };
+      var person5 = {
+        name: "Sunil",
+      };
+      var detailsOfPerson5 = bikeDetails.displayDetails.bind(
+        person5,
+        "QX2605",
+        "Super Splendar"
+      );
+      console.log(detailsOfPerson5());
+
+      //
+      var personalInfo = {
+        jobDetails: function (designation, company) {
+          return `${this.name} is ${designation} at ${company}`;
+        },
+      };
+      var userName = {
+        name: "Sunil Mishra",
+      };
+
+      var detailsOfUserName = personalInfo.jobDetails.bind(
+        userName,
+        "Branch Manager",
+        "Indian Bank"
+      );
+      console.log(detailsOfUserName());
+
+      //
+      var arr = [1, 2, 3, 4];
+      arr.push(7);
+      console.log(arr);
+
+      // Sum of arguments using rest(...) oprator
+      function addAllArgs(...args) {
+        let sumOfArgs = 0;
+        let i = 0;
+        while (i < args.length) {
+          sumOfArgs += args[i];
+          i++;
+        }
+        return sumOfArgs;
+      }
+      console.log(addAllArgs(1, 2, 4, 6), "Sum of all Args");
+      var numArr2 = [3, 4, 5, 8, 9, 4, 5];
+      console.log(addAllArgs(...numArr2), "Sum of all Args");
+
+      // sum of array elemets using for loop
+      let numArr = [3, 4, 5, 8, 9, 4, 5];
+      function addArrElems(arr) {
+        let sumOfArrElem = 0;
+        for (let i = 0; i < arr.length; i++) {
+          sumOfArrElem += arr[i];
+        }
+        return sumOfArrElem;
+      }
+      console.log(addArrElems(numArr), "Sum of Array Elements");
+
+      // sum of array elemet using reduce method
+      let sumOfArrElemRedu = numArr.reduce((acc, num) => {
+        return acc + num;
+      });
+      console.log(sumOfArrElemRedu, "sum of arr ement by reduce method");
+
+      // find duplicte element from an array by using new Set Method
+      let uniqueArr = [...new Set(numArr)];
+      console.log(uniqueArr);
+
+      // find duplicte element from an array
+      const unique = new Set(numArr);
+
+      const duplicates = numArr.filter((item) => {
+        if (unique.has(item)) {
+          unique.delete(item);
+        } else {
+          return item;
+        }
+      });
+      console.log(duplicates, "Duplicates");
+
+      // Find method - find method will stop when it finds the first match.
+      const employees = [
+        { name: "David Carlson", age: 30 },
+        { name: "John Cena", age: 34 },
+        { name: "Mike Sheridan", age: 25 },
+        { name: "John Carte", age: 50 },
+      ];
+
+      const findUserName = employees.find((emp) => {
+        return emp.name.indexOf("John") > -1;
+      });
+      console.log(findUserName, "Find user John");
+
+      //   Find user name by using for loop
+      let empName;
+      for (let i = 0; i < employees.length; i++) {
+        if (employees[i].name.indexOf("John") > -1) {
+          empName = employees[i];
+          break;
+        }
+      }
+      console.log(empName, "Find emp name with for loop");
+
+      // findIndex method - it return the index of first matched array element
+
+      const userIndex = employees.findIndex((emp) => {
+        return emp.name.indexOf("John") > -1;
+      });
+      console.log(userIndex);
+
+      // filter method - filter method returns a new array with all the elements that satisfy the provided test condition.
+
+      const filterEmp = employees.filter((emp) => {
+        return emp.name.indexOf("John") > -1;
+      });
+
+      console.log(filterEmp, "Filter john");
+
+      // The main difference between find and filter is that find only returns the first matching element of the array, but using filter returns all the matching elements from the array.
+
+      let filteredEmp = [];
+      for (let i = 0; i < employees.length; i++) {
+        if (employees[i].name.indexOf("John") > -1) {
+          filteredEmp.push(employees[i]);
+        }
+      }
+      console.log(filteredEmp, "All emp whose name is John");
+
+      // The Array every() method tests whether all elements in the array pass the provided test conditions and returns a boolean true or false value.
+
+      const mixNum = [20, 20, 40, 50];
+      const allPositive = mixNum.every((num) => {
+        return num > 0;
+      });
+      console.log(allPositive); // return true
+
+      // The Array some() method tests whether at least one element in the array passes the test condition given by the provided function and returns a boolean true or false value.
+
+      // Javascript string methods with example
+
+      // substring() - This method basically gets a part of the original string and returns it as a new string. The substring method expects two parameters:
+
+      // If startIndex > endIndex, then the substring method swaps the arguments and returns a substring, assuming as the endIndex > startIndex
+      // string.substring(startIndex, endIndex);
+      const myString = "I am learning JavaScript and it is cool!";
+      const newSubString = myString.substring(0, 10);
+      console.log(newSubString);
+
+      // slice( ) Method - If startIndex > endIndex, the slice( ) method returns an empty string
+      // If startIndex is a negative number, then the first character begins from the end of the string (reverse):
+
+      // The slice( ) method doesn’t include the last given element.
+      // the Slice( ) method can also be used for strings as well as for Array
+
+      const newSubStr = myString.slice(0, 10);
+      const newSubStr2 = myString.slice(-5); // start slicing from end of string (reverse)
+
+      // substr( ) Method
+      // string.substring(startIndex, length);
+
+      // Splice ( ) - The splice( ) method changes an array, by adding or removing elements from it.
+      // array.splice(2, 1); // remove 2nd element
+      // array.splice(0, 0, 'a', 'b'); // add a and b at begining of an array
+
+      // Split () Method - The split( ) method is used for strings.
+      // The split( ) method doesn’t work directly for arrays. However, we can first convert the elements of our array to a string, then we can use the split( ) method.
+
+      //   find longest word from given string sentence
+
+      const findLongestWord = (str) => {
+        let spltStr = str.split(" ");
+        let longestword = 0;
+        let word = null;
+        for (let i = 0; i < spltStr.length; i++) {
+          if (spltStr[i].length > longestword) {
+            longestword = spltStr[i].length;
+            word = spltStr;
+          }
+        }
+        return longestword;
+      };
+      let sentense = "The quick brown fox jumped over the lazy dog";
+      console.log(findLongestWord(sentense, "long word"));
+
+      const wordArr = [
+        "Mango",
+        "Banana",
+        "Orange",
+        "Papaya",
+        "Grapes",
+        "pomgranate",
+      ];
+      const getMaxWord = wordArr.filter((item) => {
+        let maxWord = 0;
+        if (item.length > maxWord) {
+          maxWord = item;
+        }
+        return maxWord;
+      });
+
+      console.log(getMaxWord, "Max Word");
+
+      //   evens no multiply by 2
+      let arrNum = [1, 2, 3, 4, 5, 6, 7];
+      const result = arrNum.map((num) => {
+        // if(num % 2 === 0){
+        //     return num * 2;
+        // } else{
+        //     return num * 1
+        // }
+        return num % 2 === 0 ? num * 2 : num * 1;
+      });
+      console.log(result);
+
+      // find all even no from an array
+
+      const evenNum = arrNum.filter((num) => {
+        // if(num % 2 === 0){
+        //     return num;
+        // }
+        return num % 2 === 0 ? num : "";
+      });
+      console.log(evenNum, "Even Number");
+
+      // largest number from an array
+      const maxNum = Math.max(...arrNum);
+      console.log(maxNum);
+
+      const maxNum2 = arrNum.sort((a, b) => {
+        return a - b;
+      });
+      console.log(maxNum2.reverse()[0]);
+      console.log(this);
+
+      //   setTimeout(() => {
+      //     console.log("Here - I am after 2 seconds");
+      //   }, 2000);
+
+      //   const timer = setInterval(() => {
+      //     console.log("I will keep on coming back until you clear me");
+      //   }, 2000);
+
+      for (var i = 1; i <= 5; i++) {
+        setTimeout(function () {
+          console.log(i);
+        }, i * 1000);
+      }
+
+      // Palindrome string
+      function isPalindrome(str) {
+        str = str.toLowerCase();
+        var MainStr = str.split("").reverse().join("");
+        if (MainStr == str) {
+          return "str is Palindrome";
+        } else {
+          return "str is not Palindrome";
+        }
+      }
+      console.log(isPalindrome("Naman"));
+
+      //   doubled the array element
+      var arrVal = [2, 4, 6, 8];
+      var doubled = arrVal.map((elem) => {
+        return elem * 2;
+      });
+      console.log(doubled);
+
+      // API call with fetch method and promises
+
+      //   var APICall = fetch('apiURL')
+      //   .then((res) => {
+      //       return res.json();
+      //   })
+      //   .then((data) => {
+      //       return data;
+      //   })
+
+      // API call with async and await method
+
+      //   async function getData() {
+      //       let res = await fetch('apiURL');
+      //       let data = await res.json();
+      //       return data;
+      //   }
+
+      // call()
+      function sayHello2() {
+        return `Hello ${this.name}`;
+      }
+      var objName = {
+        name: "Pankaj",
+      };
+      console.log(sayHello2.call(objName));
+
+      function sayHello3(message) {
+        return "Hello " + this.name + " is " + message;
+      }
+      console.log(sayHello3.call(objName, "Awesome"));
+
+      var perObj = {
+        age: 24,
+        getAge: function () {
+          return this.age;
+        },
+      };
+      var objName2 = {
+        age: 25,
+      };
+      console.log(perObj.getAge.call(objName2));
+
+      // apply ()
+      function saySomething2(message) {
+        return "Hello " + this.name + " is " + message;
+      }
+      var objName3 = {
+        name: "Astha",
+      };
+      console.log(saySomething2.apply(objName3, ["Beautiful"]));
+
+      // bind()
+
+      var intoduction = {
+        displayIntro: function (desig, company) {
+          return this.name + " is " + desig + " at " + company;
+        },
+      };
+      var introOfObjName3 = intoduction.displayIntro.bind(
+        objName3,
+        "HR Executive",
+        "Mindtree"
+      );
+      console.log(introOfObjName3());
+
+      function abc() {
+        a = 20;
+        console.log(a, "value of a");
+        var a;
+      }
+      abc();
+      // console.log(a, 'value of a outside fun');
+
+      // class in javascript
+
+      function Person() {
+        this.firstName = this.firstName;
+        this.lastName = this.lastName;
+        this.getFullName = function () {
+          return this.firstName + " " + this.lastName;
+        };
+      }
+
+      var person1 = new Person();
+      person1.firstName = "Harsh";
+      person1.lastName = "Mishra";
+      console.log(person1.getFullName());
+
+      var person2 = new Person();
+      person2.firstName = "Dhairya";
+      person2.lastName = "Mishra";
+      console.log(person2.getFullName());
+
+      // Find 2nd largest number from random array
+
+      var secondMax = function () {
+        var arr = [20, 120, 111, 215, 54, 78]; // use int arrays
+        var max = Math.max.apply(null, arr); // get the max of the array
+        arr.splice(arr.indexOf(max), 1); // remove max from the array
+        return Math.max.apply(null, arr); // get the 2nd max
+      };
+      console.log(secondMax, "Second Max num");
+
+      var randArr = [20, 120, 111, 215, 54, 78];
+      const secondMaxNum = (arr) => {
+        let max = Math.max.apply(null, arr);
+        arr.splice(arr.indexOf(max), 1);
+        return Math.max.apply(null, arr);
+      };
+      console.log(secondMaxNum(randArr));
+
+      // simplest method to find 2nd largest number
+      var arrVal = [3, 6, 22, 56, 34, 78];
+      const secondLargNum = arrVal.sort(function (a, b) {
+        return b - a;
+      })[1];
+
+      console.log(secondLargNum);
+
+      var stringArray = new Array("20", "120", "111", "215", "54", "78");
+
+      // let's convert it to a real array of numbers, not of strings :
+      var intArray = stringArray.map(Number);
+      console.log(intArray);
+
+      // Find 2nd smallest number
+
+      //
+      function sum(x, y, z) {
+        return x + y + z;
+      }
+
+      const numbers = [1, 2, 3, 4];
+
+      console.log(sum(...numbers));
+
+      console.log(sum.apply(null, numbers)); // 6
+
+      // How to loop through objects keys and values in Javascript?
+
+      const courses = {
+        java: 10,
+
+        javascript: 55,
+
+        nodejs: 5,
+
+        php: 15,
+      };
+      const keys = Object.keys(courses);
+      console.log(keys);
+
+      keys.forEach((key, index) => {
+        console.log(`${key}: ${courses[key]}`);
+      });
+
+      const courArr = [];
+      keys.forEach((item) => {
+        if (courses[item] > 5) {
+          courArr.push(item);
+        }
+      });
+      console.log(courArr);
+
+      // by filter method
+      const filterCourse = (course) => {
+        return Object.keys(course).filter((item) => {
+          return course[item] > 5;
+        });
+      };
+      console.log(filterCourse(courses));
+
+      // by map method to return true and false only
+      const mapCourse = (course) => {
+        return Object.keys(course).map((item) => {
+          return course[item] > 5;
+        });
+      };
+      console.log(mapCourse(courses));
+
+      // Object.values() Method (ES8) -  It returns the values of all properties in the object as an array
+      const animals = {
+        tiger: 1,
+
+        cat: 2,
+
+        monkey: 3,
+
+        elephant: 4,
+      };
+      const objVal = Object.values(animals);
+      console.log(objVal); // [1, 2, 3, 4]
+
+      objVal.forEach((val) => {
+        console.log(val);
+      });
+
+      // Object.entries() Method (ES8) - gives outputs an array of arrays, with each inner array having two elements. The first element being the property and the second element is the value.
+
+      const objEntries = Object.entries(animals);
+      console.log(objEntries);
+
+      // `for...of` loop
+      for (const [key, value] of Object.entries(animals)) {
+        console.log(`${key}: ${value}`);
+      }
+
+      // `forEach()` method
+
+      Object.entries(animals).forEach(([key, value]) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      // sum of functions argument sum(1)(2)(3)(4)()
+      let sum1 = function(a){
+        return function(b){
+          if(b){
+            return sum1(a + b);
+          }
+          return a;
+        }
+      }
+      console.log(sum1(1)(2)(3)(4)(5)());
+
+      const isPalindrome = (word) => {
+        word = word.toLowerCase();
+        var mainWord = word.split("").reverse().join("");
+        mainWord == word ? true : false;     
+      }
+    </script>
+  </body>
+</html>

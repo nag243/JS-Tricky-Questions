@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array Methods</title>
+  </head>
+  <body>
+    <script>
+      // forEach Method
+      const months = ["January", "February", "March", "April", "May", "June"];
+      months.forEach((month, index, array) => {
+        console.log(month, index, array);
+      });
+
+      // Map Method
+      const transformedArr = months.map(function (month) {
+        return month.toUpperCase();
+      });
+      console.log(transformedArr);
+
+      // Upparcase using for loop
+      const converted = [];
+      for (i = 0; i < months.length; i++) {
+        converted.push(months[i].toUpperCase());
+      }
+      console.log("Using for loop - ", converted);
+      // =====================
+      const users = [
+        {
+          firstName: "Pankaj",
+          lastName: "Mishra",
+        },
+        {
+          firstName: "Sunil",
+          lastName: "Mishra",
+        },
+        {
+          firstName: "Rajeev",
+          lastName: "Sharma",
+        },
+      ];
+
+      const userList = users.map((user) => {
+        return `${user.firstName} ${user.lastName}`;
+      });
+      console.log(userList);
+
+      const surname = users.map((user) => {
+        return user.lastName;
+      });
+      console.log(surname);
+
+      // Find Method
+      const employees = [
+        {
+          name: "John Andrew",
+          age: 26,
+        },
+        {
+          name: "Glane Maxwell",
+          age: 26,
+        },
+        {
+          name: "Simon Catich",
+          age: 26,
+        },
+        {
+          name: "John Carte",
+          age: 27,
+        },
+      ];
+
+      const employee = employees.find(function (emp) {
+        // return emp.name.lastIndexOf("John") > -1;
+        return emp.name;
+      });
+      console.log(employee, "find method");
+
+      // filter Method
+
+      const filtered = employees.filter(function (empl) {
+        return empl.name.indexOf("John") > -1;
+      });
+      console.log(filtered);
+
+      // reduce Method
+      const numbers = [1, 2, 3, 4, 5];
+
+      const sum = numbers.reduce(function (acc, number) {
+        return acc + number;
+      });
+      console.log(sum);
+
+      // set method
+      const mixArr = [1, 3, "a", "b", "b", "a", 4, 4, 5, 2, 8];
+      const uniqueArr = [...new Set(mixArr)];
+      console.log(uniqueArr.sort());
+
+      // sorting an array
+      const numArr = [2, 1, 4, 5, 3, 6, 7, 9, 8];
+      numArr.sort(function (a, b) {
+        return b - a;
+      });
+      console.log(numArr);
+
+      var items = [
+        { name: "Edward", value: 21 },
+        { name: "Sharpe", value: 37 },
+        { name: "And", value: 45 },
+        { name: "The", value: -12 },
+        { name: "Magnetic", value: 13 },
+        { name: "Zeros", value: 37 },
+      ];
+      items.sort(function (a, b) {
+        return b.value - a.value;
+      });
+      console.log(items);
+
+      function compareNum(a, b) {
+        return a - b;
+      }
+      const numberArr = [1, 50, 200, 4, 65];
+      numberArr.join();
+      console.log(numberArr.sort(compareNum), 'Join example');
+
+      // const strArr = ["one", "two", "three"];
+      const str2 = "one two three";
+      const revStr = str2.split(" ");
+      const revStr2 = revStr.reverse();
+      const joinStr = revStr2.join(" ");
+      console.log(joinStr);
+
+      // return duplicate element from an array
+      // duplicate element by filter method
+      const arrElem = [2, 4, 4, 5, 8, 8, 9, 5, 4, 6, 7];
+      console.log(arrElem.filter((e, i, a) => a.indexOf(e) !== i)); // return duplicate element
+      console.log(arrElem.filter((e, i, a) => a.indexOf(e) === i)); // return unique element only
+      console.log(new Set(arrElem)); // return unique element only
+
+    </script>
+  </body>
+</html>

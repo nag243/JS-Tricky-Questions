@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Exercise</title>
+  </head>
+  <body>
+    <script>
+            // Reduce method examples
+            // Example 1
+            const numArr = [1, 2, 3, 4, 5];
+            const total = numArr.reduce((acc, num) => {
+              return acc + num;
+            });
+            console.log("Sum of array number = ", total);
+
+            // Example 2
+            const fruits = ["apple", "orange", "apple", "banana"];
+            const tally = fruits.reduce((accumulator, fruit) => {
+              if (accumulator[fruit]) {
+                accumulator[fruit] = accumulator[fruit] + 1;
+              } else {
+                accumulator[fruit] = 1;
+              }
+              return accumulator;
+            }, {});
+            console.log(tally); // {apple: 2, orange: 1, banana: 1}
+
+            // Example 3 - Flatened array
+            const twoDArray = [
+              [1, 2, 3, 4, 5],
+              [6, 7, 8, 9, 10],
+            ];
+            const flattened = twoDArray.reduce((accumulator2, item) => {
+              return [...accumulator2, ...item];
+            }, []);
+            console.log("Flatened array", flattened); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+            // Flatened array
+            let flatArray = [].concat.apply([], twoDArray);
+            let flatArray2 = [].concat(...twoDArray);
+            console.log("flat Array", flatArray);
+
+            // 𝗧𝗵𝗲 𝘀𝗶𝗺𝗽𝗹𝗲𝘀𝘁 𝘄𝗮𝘆 𝘁𝗼 𝗳𝗶𝗻𝗱 𝗺𝗮𝘅 𝗮𝗻𝗱 𝗺𝗶𝗻 𝘃𝗮𝗹𝘂𝗲𝘀 𝗳𝗿𝗼𝗺 𝗮 𝗴𝗶𝘃𝗲𝗻 𝗮𝗿𝗿𝗮𝘆 𝗶𝘀 𝘂𝘀𝗶𝗻𝗴 𝗮𝗽𝗽𝗹𝘆() 𝗺𝗲𝘁𝗵𝗼𝗱
+
+            const marks = [20, 50, 70, 40, 30, 60, 45];
+
+            const findMin = (arr) => {
+              return Math.min.apply(null, arr);
+            };
+
+            const findMax = (arr) => {
+              return Math.max.apply(null, arr);
+            };
+            console.log("Minimum Marks ", findMin(marks)); // 20
+            console.log("Maximum Marks ", findMax(marks)); // 70
+
+            // Function with default parameter
+
+            function addTen(a, b = 5) {
+              return a + b;
+            }
+            console.log(addTen(10));
+
+            // Table function
+
+            function table(num) {
+              for (i = 1; i <= 10; i++) {
+                const res = i * num;
+                console.log(`${num} * ${i} = ${res}`);
+              }
+            }
+            console.log(table(3));
+
+            let a = null;
+            console.log(typeof a); // Object
+            console.log(typeof NaN); // Number
+
+            //Closer example
+            function parent() {
+              var a = 100;
+              function child() {
+                console.log(a);
+              }
+              child();
+            }
+            parent(); // 100 - due to lexical scope of parent function
+            // Uses of Closures
+            // 1. Module design pattern
+            // 2. Curruing
+            // 3. Functions like once
+            // 4. Memoize
+            // 5. Maintaining state in async world
+            // 6. setTimeouts
+            // 7. Iterators
+
+            // setTimeouts
+          //   function count() {
+          //     for (var i = 1; i <= 5; i++) {
+          //       setTimeout(function () {
+          //         console.log(i);
+          //       }, i * 5000);
+          //     }
+          //   }
+          //   count(); // 6 6 6 6 6 - due globle scope of var - var create same value each time due to globle scope of var
+
+          //   function count2() {
+          //     for (let i = 1; i <= 5; i++) {
+          //       setTimeout(() => {
+          //         console.log(i);
+          //       }, i * 4000);
+          //     }
+          //   }
+          //   count2(); // 1 2 3 4 5 - let create eact time new value for i due to block scope
+
+          //   // how to print 1 to 5 using setTimeout with var keword
+          //   function count3() {
+          //     for (var i = 1; i <= 5; i++) {
+          //       function close(x) {
+          //         setTimeout(() => {
+          //           console.log(x);
+          //         }, x * 1000);
+          //       }
+          //       close(i);
+          //     }
+          //   }
+          //   count3(); // 1 2 3 4 5 - due to closure concept
+
+            // closure complex example
+            function Counter(){
+                var count = 0
+                this.increment = function (){
+                    count++;
+                    console.log(count);
+                }
+                this.decrement = function (){
+                    count--;
+                    console.log(count);
+                }
+            }
+            var counter1 = new Counter();
+            counter1.increment();
+            counter1.increment();
+            counter1.decrement();
+
+            // Function statement or function declaration - will be hoisted
+              function statement(){
+                console.log('This is fun statement');
+              }
+              statement();
+            // Function expression - will not be hosted
+              var exp = function(){
+                console.log('This is func expression');
+              }
+              exp();
+
+            // Diff between Fun statement and fun expression is hoisting - fun statement will be hoisted but expression will not be hoistied
+
+            // fun statement is also known as function declaration
+
+            // closure example
+            function outer(){
+              var a = 10;
+              function inner(){
+                console.log(a, 'taken from outer fun');
+              }
+              inner();
+            }
+            outer();
+
+            // setTimeout(function(){
+            //   console.log("Callback");
+            // }, 5000);
+
+            function count4(){
+              for(var i = 1; i <= 5; i++){
+                function close(x){
+                  setTimeout(() =>{
+                  console.log(x);
+                }, x * 1000)
+                }
+                close(i)
+              }
+            }
+            count4();
+
+            // sorting an array without sort() method
+            let arr = [5, 2, 19, 9, 3, 8, 7];
+            for(let i = 0; i < arr.length; i++){
+              for(let j = i + 1; j < arr.length; j++){
+                if(arr[i] > arr[j]){
+                  let temp = arr[i];
+                  arr[i] = arr[j];
+                  arr[j] = temp;
+                }
+              }
+            }
+            console.log('sorted array', arr);
+
+            // remove duplicate from an array              
+              // by using filter() method
+              const duplicateArr = [3, 2, 7, 3, 5, 7, 9, 2, 3, 5];
+              const duplicateArr2 = ["pankaj", "sunil", "astha", "pankaj", "sunil"]
+              let unique_array = duplicateArr.filter((elem, index, self) => {
+              return index == self.indexOf(elem); });
+              console.log(unique_array);
+
+              // by using for() loop
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>String Method</title>
+  </head>
+  <body>
+    <script>
+      const str = "Today is a nice day!";
+      console.log(str.length);
+      console.log(str[2]);
+      console.log(str.includes("is"));
+      console.log(str.includes("IS"));
+      // console.log(str.split(""));
+
+      //   sum of array element
+      const numbers = [1, 2, 3, 4, 6];
+      const addNumbers = numbers.reduce((a, b) => {
+        return a + b;
+      });
+      console.log(addNumbers);
+
+      // reverse sting
+
+      // const revString = str.split(" ").reverse().join("");
+      // console.log(revString);
+
+      function revString(str1) {
+        let splitStr = str1.split("");
+        let revArr = splitStr.reverse();
+        let joinArr = revArr.join("");
+        return joinArr;
+      }
+      console.log(revString("Hello Pankaj"));
+
+      //   find longest word from given string sentence
+
+      findLongestWord = (str) => {
+        let spltStr = str.split(" ");
+        let longestword = 0;
+        let word = null;
+        for (let i = 0; i < spltStr.length; i++) {
+          if (spltStr[i].length > longestword) {
+            longestword = spltStr[i].length;
+            word = spltStr;
+          }
+        }
+        return spltStr;
+      };
+      let sentense = "The quick brown fox jumped over the lazy dog";
+      console.log(findLongestWord(sentense, "long word"));
+
+      //   //   Reverse each word in the sentence
+      //   var string = "Welcome to this Javascript Guide!";
+
+      //   // Output becomes !ediuG tpircsavaJ siht ot emocleW
+      //   var reverseEntireSentence = reverseBySeparator(string, "");
+
+      //   // Output becomes emocleW ot siht tpircsavaJ !ediuG
+      //   var reverseEachWord = reverseBySeparator(reverseEntireSentence, " ");
+
+      //   function reverseBySeparator(string, separator) {
+      //     return string.split(separator).reverse().join(separator);
+      //   }
+
+      // factorial Number
+      // const num = 5;
+      let fact = 1;
+      // for(let i = 1; i <= num; i++){
+      //     fact = fact * i;
+      // }
+      // console.log(fact, "Factorial Number");
+
+      // Using functiona
+      // const factorialNum = (num) =>{
+      //     for(let i = 1; i <= num; i++){
+      //         fact = fact * i;
+      //     }
+      //     return fact;
+      // }
+      // console.log(factorialNum(10));
+
+      // By using recursion function
+
+      const factorialize = (num) => {
+        if (num < 0) {
+          return -1;
+        } else if (num == 0) {
+          return 0;
+        } else {
+          return num * factorialize(num - 1);
+        }
+      };
+      console.log(factorialize(5));
+
+      //   Prime number
+
+      const primeNumber = (num) => {
+        var i,
+          flag = true;
+        for (i = 2; i < num - 1; i++) {
+          if (num % i == 0) {
+            flag = false;
+            break;
+          }
+          if (flag == true) {
+            return "number is prime";
+          } else {
+            return "number is not prime";
+          }
+        }
+      };
+      console.log(primeNumber(9));
+
+      // longest word
+      function longestWord(string) {
+        var str = string.split(" ");
+        var longest = 0;
+        var word = null;
+        str.forEach(function (str) {
+          if (longest < str.length) {
+            longest = str.length;
+            word = str;
+          }
+        });
+        return word;
+      }
+      console.log(longestWord("pride and prejudice"));
+
+      let num1 = [1, 2, 3, 4];
+      let num2 = [...num1, 5, 6, 7];
+      console.log(num2);
+    </script>
+  </body>
+</html>
